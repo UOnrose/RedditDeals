@@ -30,7 +30,7 @@ except:
     New posts: r'https://www.reddit.com/r/buildapcsales/new.json'
 '''
 
-r = requests.get(r'https://www.reddit.com/r/buildapcsales/new.json', headers = {'User-agent': 'Noah Bot'})
+r = requests.get(r'https://www.reddit.com/r/NintendoSwitchDeals/top.json?t=year', headers = {'User-agent': 'Noah Bot'})
 # Read data as JSON object
 data = r.json()
 
@@ -39,11 +39,11 @@ data = r.json()
 
 try:
     # Subreddit keys
-    #print(data['data'].keys())
-    #print()
+    print(data['data'].keys())
+    print()
     # Post keys
-    #print(data['data']['children'][0]['data'].keys())
-    #print()
+    print(len(data['data']['children']))
+    print()
 
     # Print info for each post
     print()
@@ -64,13 +64,21 @@ try:
         date_str_final = utc.astimezone(to_zone)
 
         # Get post tag
-        tag = child['data']['title'].split("[")[1].split("]")[0]
+        try:
+            tag = " - " + child['data']['title'].split("[")[1].split("]")[0]
+        except:
+            tag = ""
 
+        print(date_str_final, " --- ", child['data']['score'], " - ", child['data']['title'], " - ", child['data']['url'], tag)
+        print()
+
+        '''
         # Show only monitors
         if tag == "Monitor":
             # Time --- score - title - link - tag
-            print(date_str_final, " --- ", child['data']['score'], " - ", child['data']['title'], " - ", child['data']['url'], " - ", tag)
+            print(date_str_final, " --- ", child['data']['score'], " - ", child['data']['title'], " - ", child['data']['url'], tag)
             print()
+        '''
             
 except Exception as e:
     print("Error reading data")
