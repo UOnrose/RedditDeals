@@ -1,5 +1,7 @@
 import requests
 import json
+from datetime import datetime, timezone
+from dateutil import tz
 
 '''     User comment example    '''
 # Get request using a custom agent (default can cause 429: Too Many Requests)
@@ -33,20 +35,43 @@ r = requests.get(r'https://www.reddit.com/r/buildapcsales/new.json', headers = {
 data = r.json()
 
 # Print keys (should be 'kind' and 'data')
-print(data.keys())
+#print(data.keys())
 
 try:
     # Subreddit keys
-    print(data['data'].keys())
-    print()
+    #print(data['data'].keys())
+    #print()
     # Post keys
-    print(data['data']['children'][0]['data'].keys())
-    print()
+    #print(data['data']['children'][0]['data'].keys())
+    #print()
 
     # Print info for each post
+    print()
     for child in data['data']['children']:
-        print(child['data']['created_utc'], " --- ", child['data']['title'], " - ", child['data']['url'])
-        print()
-except:
+        # Get time in seconds
+        ts = child['data']['created_utc']
+        # Convert to date string
+        date_str = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+
+        # Autodetect timezone
+        from_zone = tz.tzutc()
+        to_zone = tz.tzlocal()
+
+        # Replace timezone
+        utc = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+        utc = utc.replace(tzinfo=from_zone)
+        
+        date_str_final = utc.astimezone(to_zone)
+
+        # Get post tag
+        tag = child['data']['title'].split("[")[1].split("]")[0]
+
+        # Show only monitors
+        if tag == "Monitor":
+            # Time --- score - title - link - tag
+            print(date_str_final, " --- ", child['data']['score'], " - ", child['data']['title'], " - ", child['data']['url'], " - ", tag)
+            print()
+            
+except Exception as e:
     print("Error reading data")
-    print(data)
+    print(e)
