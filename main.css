@@ -1,9 +1,24 @@
 body {
     display: block;
-    background-color: cornsilk;
+    background-color: floralwhite;
 }
 
 div {
     margin-bottom: 1em;
 }
 
+.entry a:link {
+    color: black;
+}
+
+.entry a:visited {
+    color: black;
+}
+
+.entry a:hover {
+    color: cornflowerblue;
+}
+
+.entry a:active {
+    color: black;
+}
