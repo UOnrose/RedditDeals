@@ -13,7 +13,7 @@ class DataHandler {
         this.DrawData();
 
         // Event listener that activates when the user changes an option
-        document.getElementById("Time").addEventListener("click", function(){
+        document.getElementById("Time").addEventListener("change", function(){
             let sub = document.getElementById("Subreddit");
             sub = sub.options[sub.selectedIndex].value;
             
@@ -23,7 +23,7 @@ class DataHandler {
             that.UpdateData(that.GenerateLink(sub, time));
         });
 
-        document.getElementById("Subreddit").addEventListener("click", function(){
+        document.getElementById("Subreddit").addEventListener("change", function(){
             let sub = document.getElementById("Subreddit");
             sub = sub.options[sub.selectedIndex].value;
             
