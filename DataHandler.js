@@ -12,8 +12,18 @@ class DataHandler {
         
         this.DrawData();
 
-        // Event listener that activates when the user presses the search button
-        document.getElementById("Search").addEventListener("click", function(){
+        // Event listener that activates when the user changes an option
+        document.getElementById("Time").addEventListener("click", function(){
+            let sub = document.getElementById("Subreddit");
+            sub = sub.options[sub.selectedIndex].value;
+            
+            let time = document.getElementById("Time");
+            time = time.options[time.selectedIndex].value;
+
+            that.UpdateData(that.GenerateLink(sub, time));
+        });
+
+        document.getElementById("Subreddit").addEventListener("click", function(){
             let sub = document.getElementById("Subreddit");
             sub = sub.options[sub.selectedIndex].value;
             
@@ -34,7 +44,7 @@ class DataHandler {
             div.setAttribute("Class", "entry");
 
             let text = document.createElement("A");
-            text.innerHTML = child['data']['title'];
+            text.innerHTML = "* " + child['data']['title'];
             text.setAttribute("href", child['data']['url']);
             
             div.appendChild(text);

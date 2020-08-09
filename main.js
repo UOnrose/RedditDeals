@@ -28,6 +28,7 @@ window.onload = function() {
     time = time.options[time.selectedIndex].value;
 
     link = 'https://www.reddit.com/' + sub + '/top.json?t=' + time;
+    
     fetchJSONFile(link, function(data) {
         dh = new DataHandler(data);
     });

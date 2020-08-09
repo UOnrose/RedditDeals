@@ -3,12 +3,23 @@ body {
     background-color: floralwhite;
 }
 
-div {
-    margin-bottom: 1em;
+#selections {
+    display: inline;
+    font-size: 150%;
+}
+
+#selections select {
+    height: 2em;
+    font-size: 100%;
+}
+
+.entry {
+    margin-top: 1em;
 }
 
 .entry a:link {
     color: black;
+    text-decoration: none;
 }
 
 .entry a:visited {
@@ -21,4 +32,8 @@ div {
 
 .entry a:active {
     color: black;
+}
+
+.entry a {
+    font-size: 120%;
 }
